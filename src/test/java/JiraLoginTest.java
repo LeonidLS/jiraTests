@@ -16,13 +16,12 @@ public class JiraLoginTest extends Init {
     }
 
     @Test(priority = 1)
-    public void jiraLoginPageTest() throws InterruptedException {
+    public void jiraLoginPageTest() {
         this.driver.get("https://jira.hillel.it/");
         try {
-            driver.findElement(userName).sendKeys("Leon");
-            driver.findElement(password).sendKeys("killer");
+            driver.findElement(userName).sendKeys("webinar5");
+            driver.findElement(password).sendKeys("webinar5");
             driver.findElement(loginButton).click();
-            Thread.sleep(5000);
         } catch (NoSuchElementException | StaleElementReferenceException exception) {
             System.out.println("Web UI element wasn't found, or has been changed unexpectedly");
         }
