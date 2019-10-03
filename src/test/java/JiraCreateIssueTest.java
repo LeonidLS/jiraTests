@@ -1,6 +1,7 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
+import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.Test;
 
@@ -12,6 +13,7 @@ public class JiraCreateIssueTest extends Init {
     private By summaryContent = By.xpath("//*[@id='summary']");
     private By createButton = By.xpath("//*[@id='create-issue-submit']");
     private By setReporter = By.xpath("//*[@id='reporter-field']");
+    private By successMsg = By.xpath("//*[contains(text(), 'has been successfully created.')]");
 
 
     @Test(priority = 2)
@@ -23,6 +25,9 @@ public class JiraCreateIssueTest extends Init {
             driver.findElement(summaryContent).sendKeys("Outstanding Summary");
             driver.findElement(setReporter).sendKeys("Leonid");
             driver.findElement(createButton).click();
+
+            Assert.assertEquals(driver.findElement(successMsg).isDisplayed(), true);
+
         } catch (NoSuchElementException | StaleElementReferenceException exception) {
             System.out.println("Web UI element wasn't found, or has been changed unexpectedly");
         }
