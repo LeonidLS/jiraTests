@@ -1,6 +1,8 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.Test;
@@ -18,13 +20,16 @@ public class JiraCreateIssueTest extends Init {
 
     @Test(priority = 2)
     public void jiraLoginPageTest() {
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS); ///***
         driver.get("https://jira.hillel.it/secure/Dashboard.jspa");
         try {
             driver.findElement(createIssue).click();
             driver.findElement(summaryContent).sendKeys("Outstanding Summary");
             driver.findElement(setReporter).sendKeys("Leonid");
             driver.findElement(createButton).click();
+
+            WebDriverWait wait = new WebDriverWait(driver, 25);
+            wait.until(ExpectedConditions.elementToBeClickable(successMsg));
 
             Assert.assertEquals(driver.findElement(successMsg).isDisplayed(), true);
 
