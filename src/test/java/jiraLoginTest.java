@@ -1,5 +1,6 @@
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -11,6 +12,7 @@ public class jiraLoginTest {
     private By userName = By.xpath("//*[@id='login-form-username']");
     private By password = By.xpath("//*[@id='login-form-password']");
     private By loginButton = By.xpath("//*[@id='login']");
+    private By createButton = By.xpath("//*[@id='create_link']");
 
     @BeforeTest
     public void init() {
@@ -29,6 +31,7 @@ public class jiraLoginTest {
         } catch (NoSuchElementException | StaleElementReferenceException exception) {
             System.out.println("Web UI element wasn't found, or has been changed unexpectedly");
         }
+        Assert.assertTrue(this.driver.findElement(createButton).isDisplayed());
     }
 
     @AfterTest
